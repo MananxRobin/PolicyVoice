@@ -1,0 +1,127 @@
+"use client";
+
+import { NprmDocument } from "@/lib/types";
+import { sampleNprms } from "@/data/samples";
+import {
+  ArrowRight,
+  Building2,
+  Calendar,
+  ExternalLink,
+  FileText,
+  Landmark,
+  AlertCircle,
+} from "lucide-react";
+import { useState } from "react";
+
+interface UploadStepProps {
+  onSelect: (nprm: NprmDocument) => void;
+}
+
+export default function UploadStep({ onSelect }: UploadStepProps) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  return (
+    <div className="animate-fade-in space-y-8">
+      <div className="text-center">
+        <Landmark className="w-16 h-16 text-navy-700 mx-auto mb-4" />
+        <h1 className="text-3xl font-bold text-navy-900 mb-2">
+          Regulations.gov Public Comment Drafter
+        </h1>
+        <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Federal agencies are <strong>legally required</strong> to read and
+          respond to substantive public comments under the Administrative
+          Procedure Act. Most Americans don&apos;t know they have this power.
+          Pick a proposed rule below, tell us your perspective, and we&apos;ll
+          draft a legally-formatted comment the agency must address.
+        </p>
+      </div>
+
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 flex gap-3">
+        <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+        <div>
+          <h3 className="font-semibold text-amber-800 mb-1">
+            Your Civic Superpower
+          </h3>
+          <p className="text-amber-700 text-sm leading-relaxed">
+            Under the Administrative Procedure Act (5 U.S.C. § 553), agencies
+            must publish proposed rules and accept public comments. They must
+            address every &ldquo;significant&rdquo; comment in the final rule.
+            This is how ordinary citizens shape federal policy — from clean
+            water standards to broadband access to healthcare.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-xl font-semibold text-navy-800 mb-4">
+          Choose a Proposed Rule to Comment On
+        </h2>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {sampleNprms.map((nprm: NprmDocument) => (
+            <button
+              key={nprm.id}
+              onClick={() => onSelect(nprm)}
+              onMouseEnter={() => setHoveredId(nprm.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              className={`
+                text-left p-5 rounded-xl border-2 transition-all duration-200
+                ${
+                  hoveredId === nprm.id
+                    ? "border-navy-600 shadow-lg shadow-navy-200/50 -translate-y-0.5"
+                    : "border-slate-200 hover:border-slate-300 shadow-sm"
+                }
+                bg-white group
+              `}
+            >
+              <div className="flex items-start gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-5 h-5 text-navy-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-navy-900 text-sm leading-snug mb-1 line-clamp-2">
+                    {nprm.title}
+                  </h3>
+                  <p className="text-xs text-slate-500">{nprm.agency}</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-600 mb-3 line-clamp-2">
+                {nprm.summary}
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {nprm.keyTopics.slice(0, 3).map((topic: string) => (
+                  <span
+                    key={topic}
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-navy-50 text-navy-700 font-medium"
+                  >
+                    {topic}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-slate-400">
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3" />
+                  Due {nprm.commentDeadline}
+                </span>
+                <span className="flex items-center gap-1 text-navy-600 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                  Get started <ArrowRight className="w-3 h-3" />
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="text-center">
+        <p className="text-sm text-slate-500 flex items-center justify-center gap-1">
+          <FileText className="w-4 h-4" />
+          Have your own NPRM PDF? Upload it instead — PDF parsing available
+          (coming soon)
+        </p>
+      </div>
+    </div>
+  );
+}
