@@ -1,6 +1,6 @@
 # PolicyVoice — Regulations.gov Public Comment Drafter
 
-**Turn every American into a de facto lobbyist.** Federal agencies are legally required to read and respond to substantive public comments under the Administrative Procedure Act. This tool ingests Notices of Proposed Rulemaking (NPRMs), interviews you about your situation, and drafts a formatted public comment with citations — then submits it directly to Regulations.gov.
+**Turn every American into a de facto lobbyist.** Federal agencies are legally required to read and respond to substantive public comments under the Administrative Procedure Act. PolicyVoice ingests Notices of Proposed Rulemaking (NPRMs), interviews you about your situation, and drafts a formatted, citation-backed public comment — then submits it directly to Regulations.gov on your behalf.
 
 ---
 
